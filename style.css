@@ -10,6 +10,9 @@
 body {
   background: rgb(245, 240, 240);
 }
+strong {
+  font-weight: 400;
+}
 h1,
 .scores,
 .infos {
