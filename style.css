@@ -85,10 +85,10 @@ aside {
   width: 65px;
   border-radius: 100%;
   font-size: 0.9rem;
+  border: none;
 
   color: var(--noirLightBorderBtn);
   background: var(--blancCassé);
-  border: 1px solid var(--noirLightBorderBtn);
 }
 .darkTheme {
   background: var(--noirLightBorderBtn);

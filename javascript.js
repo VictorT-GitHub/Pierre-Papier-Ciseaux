@@ -4,7 +4,7 @@ let scoreJoueur1 = 0;
 let scoreOrdinateur = 0;
 let resultat = "";
 
-// Function shifumi
+// Function shifumi BUTTONS
 function shifumi(e) {
     const choixJoueur = choixPossible.indexOf(e.target.innerHTML)
     const choixOrdinateur = Math.floor(Math.random() * choixPossible.length);
@@ -14,16 +14,55 @@ if (choixJoueur == choixOrdinateur) {
 }
 else if ((choixJoueur == 1 && choixOrdinateur == 0 ) || (choixJoueur == 2 && choixOrdinateur == 1 ) || (choixJoueur == 0 && choixOrdinateur == 2 )) {
     scoreJoueur1++;
-    resultat = "Vous avez gagné !"
+    resultat = 'Vous avez gagné !';
+}
+else {
+    scoreOrdinateur++;
+    resultat = 'Vous avez perdu !';
+}
+score.innerHTML = `Scores :<br>joueur[${scoreJoueur1}] - ordinateur[${scoreOrdinateur}]`;
+infos.innerHTML = `Vous avez joué : <strong>${e.target.innerHTML}</strong><br>L'ordinateur a joué : <strong>${choixPossible[choixOrdinateur]}</strong><br><strong>${resultat}</strong>`;
+};
+
+// Function shifumi KEYPRESS
+function shifumiKey(e) {
+if (e.key === "&" || e.key === "é" || e.key === '"') {
+    const choixOrdinateur = Math.floor(Math.random() * choixPossible.length);
+    let choixJoueur = "";
+    
+    if (e.key === "&") {
+        choixJoueur =  0;
+    }
+    else if (e.key === "é") {
+        choixJoueur =  1;
+    }
+    else if (e.key === '"') {
+        choixJoueur =  2;
+    }
+    else if (e.key === "r") {
+        infos.innerHTML = "bite";
+    }
+if (choixJoueur == choixOrdinateur) {
+    resultat = "Egalité !";
+}
+else if ((choixJoueur == 1 && choixOrdinateur == 0 ) || (choixJoueur == 2 && choixOrdinateur == 1 ) || (choixJoueur == 0 && choixOrdinateur == 2 )) {
+    scoreJoueur1++;
+    resultat = "Vous avez gagné !";
 }
 else {
     scoreOrdinateur++;
     resultat = "Vous avez perdu !";
 }
 score.innerHTML = `Scores :<br>joueur[${scoreJoueur1}] - ordinateur[${scoreOrdinateur}]`;
-infos.innerHTML = `Vous avez joué : <strong>${e.target.innerHTML}</strong><br>L'ordinateur a joué : <strong>${choixPossible[choixOrdinateur]}</strong><br><strong>${resultat}</strong>`;
+infos.innerHTML = `Vous avez joué : <strong>${choixPossible[choixJoueur]}</strong><br>L'ordinateur a joué : <strong>${choixPossible[choixOrdinateur]}</strong><br><strong>${resultat}</strong>`;
+    }
+else if (e.key === "r") { 
+    scoreJoueur1 = 0;
+    scoreOrdinateur = 0;
+    score.innerHTML = `Scores :<br>joueur[${scoreJoueur1}] - ordinateur[${scoreOrdinateur}]`;
+    infos.innerHTML = ""
+}
 };
-
 
 // Creation <h1> + Deplacement dans <header>
 const newh1 = document.createElement('h1');
@@ -91,6 +130,9 @@ newThemeBtn.innerHTML = "Go Dark";
             fdp.classList.toggle("darkTheme");
         }
 }
-    
 )
 document.querySelector("aside").appendChild(newThemeBtn);
+
+// KeyPress EVENT
+// Creation [addEventListener] sur <body> 
+document.body.addEventListener("keypress", shifumiKey);
