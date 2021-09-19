@@ -24,12 +24,14 @@ score.innerHTML = `Scores :<br>joueur[${scoreJoueur1}] - ordinateur[${scoreOrdin
 infos.innerHTML = `Vous avez joué : <strong>${e.target.innerHTML}</strong><br>L'ordinateur a joué : <strong>${choixPossible[choixOrdinateur]}</strong><br><strong>${resultat}</strong>`;
 };
 
-// Creation du <main> 
-const newMain = document.createElement("main");
 
-// Creation <h1>
+// Creation <h1> + Deplacement dans <header>
 const newh1 = document.createElement('h1');
 newh1.innerHTML = "Pierre Papier Ciseaux"
+document.querySelector("header").appendChild(newh1);
+
+// Creation du <main> 
+const newMain = document.createElement("main");
 
 // Creation des 3 <div>
 const newDivScore = document.createElement("div");
@@ -67,5 +69,28 @@ newMain.appendChild(newDivInfos);
 // Deplacement de newMain dans <body>
 document.body.insertBefore(newMain, document.querySelector("footer"));
 
-// Deplacement de newH1 dans <header>
-document.querySelector("header").appendChild(newh1);
+// Creation BUTTON Light/Dark Theme
+const newThemeBtn = document.createElement("button");
+newThemeBtn.classList.add("themeBtn");
+newThemeBtn.classList.add("darkTheme");
+newThemeBtn.innerHTML = "Go Dark";
+    // Ajout [addEventListener] + [function] flechee qui switch theme dark/light
+    const lesBtn = document.querySelectorAll(".btn");
+    newThemeBtn.addEventListener('click', () => {
+        newThemeBtn.classList.toggle("darkTheme");
+        // condition pour changer text "go dark" -> "go light"
+        if (!newThemeBtn.classList.contains("darkTheme")){
+            newThemeBtn.innerHTML = "Go Light";
+        } else if (newThemeBtn.classList.contains("darkTheme")){
+            newThemeBtn.innerHTML = "Go Dark";
+            }
+        
+        document.body.classList.toggle("darkTheme");
+        
+        for (let fdp of lesBtn){
+            fdp.classList.toggle("darkTheme");
+        }
+}
+    
+)
+document.querySelector("aside").appendChild(newThemeBtn);
