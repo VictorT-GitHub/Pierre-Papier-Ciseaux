@@ -33,7 +33,7 @@ h1,
 .btn {
   letter-spacing: 0.8px;
 }
-/* ---------------------- Header ------------------------------------------ */
+/* ---------------------- Header ------------------------------------------------ */
 h1 {
   margin-top: 95px;
   font-size: 2.1rem;
@@ -41,7 +41,7 @@ h1 {
   word-spacing: 8px;
   letter-spacing: 1.6px;
 }
-/* --------------------- Scores --------------------------------------------- */
+/* --------------------- Scores ------------------------------------------------- */
 .scores {
   line-height: 30px;
   margin-top: 40px;
@@ -71,9 +71,8 @@ h1 {
   background: var(--grisFondBtnHover);
   letter-spacing: 1.6px;
 }
-/* ---------------- Button <aside> Dark/Light Theme + DARK THEME --------------------------- */
+/* --------------- Button <aside> Dark/Light Theme + DARK THEME ---------------- */
 aside {
-  width: 100vw;
   display: flex;
   justify-content: center;
 }
@@ -87,7 +86,6 @@ aside {
   border-radius: 100%;
   font-size: 0.9rem;
   border: none;
-
   color: var(--noirLightBorderBtn);
   background: var(--blancCassé);
 }
@@ -102,14 +100,14 @@ aside {
 .btn.darkTheme:hover {
   background: var(--noirLightBorderBtn);
 }
-/* ----------------------- Infos ----------------------------------------- */
+/* -------------------------- Infos ----------------------------------------- */
 .infos {
   line-height: 30px;
   margin-top: 30px;
   font-size: 1.1rem;
   font-weight: 300;
 }
-/* --------------- RESPONSIVE -------------------------------------------- */
+/* ------------------------- RESPONSIVE ------------------------------------- */
 /* - userScreen >500px - */
 @media screen and (min-width: 500px) {
   h1 {
@@ -137,11 +135,7 @@ aside {
     padding: 10px 0px;
   }
 
-  aside {
-    justify-content: flex-start;
-  }
   .themeBtn {
-    position: absolute;
     left: 22px;
   }
 }
