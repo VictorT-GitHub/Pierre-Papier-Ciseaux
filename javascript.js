@@ -1,14 +1,69 @@
+const btns_container = document.querySelector("#btns-container");
+const scores = document.querySelector(".scores");
+const infos = document.querySelector(".infos");
+
 const choixPossible = ["pierre", "papier", "ciseaux"];
 
 let scoreJoueur1 = 0;
 let scoreOrdinateur = 0;
 let resultat = "";
 
-// Function shifumi BUTTONS
-function shifumi(e) {
-  const choixJoueur = choixPossible.indexOf(e.target.innerHTML);
+// DOM MANIPULATION ----------------------------------------------
+// Like that we can later add some btn easily if we want
+// just by adding new item in [choixPossible] array
+for (let i = 0; i < choixPossible.length; i++) {
+  const newBtn = document.createElement("button");
+  newBtn.textContent = `${choixPossible[i]}`;
+  newBtn.classList.add("btn");
+  newBtn.addEventListener("click", shifumiClick);
+  btns_container.appendChild(newBtn);
+}
+
+// FUNCTIONS -----------------------------------------------------
+// -- Function shifumi BUTTONS --
+function shifumiClick(e) {
+  const choixJoueur = choixPossible.indexOf(e.target.textContent);
   const choixOrdinateur = Math.floor(Math.random() * choixPossible.length);
 
+  winnerCalcAndScoresInc(choixJoueur, choixOrdinateur);
+
+  displayScoresInfos(
+    `Vous avez joué : <strong>${e.target.textContent}</strong><br>L'ordinateur a joué : <strong>${choixPossible[choixOrdinateur]}</strong><br><strong>${resultat}</strong>`
+  );
+}
+
+// -- Function shifumi KEYPRESS --
+function shifumiKey(e) {
+  if (e.key === "r") {
+    scoreJoueur1 = 0;
+    scoreOrdinateur = 0;
+    return displayScoresInfos("");
+  }
+
+  if (e.key === "&" || e.key === "é" || e.key === '"') {
+    const choixOrdinateur = Math.floor(Math.random() * choixPossible.length);
+    let choixJoueur;
+
+    if (e.key === "&") choixJoueur = 0;
+    if (e.key === "é") choixJoueur = 1;
+    if (e.key === '"') choixJoueur = 2;
+
+    winnerCalcAndScoresInc(choixJoueur, choixOrdinateur);
+
+    return displayScoresInfos(
+      `Vous avez joué : <strong>${choixPossible[choixJoueur]}</strong><br>L'ordinateur a joué : <strong>${choixPossible[choixOrdinateur]}</strong><br><strong>${resultat}</strong>`
+    );
+  }
+}
+
+// -- Function scores and infos display --
+function displayScoresInfos(infosString) {
+  scores.innerHTML = `Scores :<br>joueur[${scoreJoueur1}] - ordinateur[${scoreOrdinateur}]`;
+  infos.innerHTML = infosString;
+}
+
+// -- Function shifumi winner calc and scores increment --
+function winnerCalcAndScoresInc(choixJoueur, choixOrdinateur) {
   if (choixJoueur == choixOrdinateur) {
     resultat = "Egalité !";
   } else if (
@@ -22,105 +77,26 @@ function shifumi(e) {
     scoreOrdinateur++;
     resultat = "Vous avez perdu !";
   }
-  score.innerHTML = `Scores :<br>joueur[${scoreJoueur1}] - ordinateur[${scoreOrdinateur}]`;
-  infos.innerHTML = `Vous avez joué : <strong>${e.target.innerHTML}</strong><br>L'ordinateur a joué : <strong>${choixPossible[choixOrdinateur]}</strong><br><strong>${resultat}</strong>`;
 }
 
-// Function shifumi KEYPRESS
-function shifumiKey(e) {
-  if (e.key === "&" || e.key === "é" || e.key === '"') {
-    const choixOrdinateur = Math.floor(Math.random() * choixPossible.length);
-    let choixJoueur = "";
+// EVENT LISTENERS ----------------------------------------------
+// -- Dark/light btn CLICK EVENT --
+const themeBtn = document.querySelector(".themeBtn");
+themeBtn.addEventListener("click", () => {
+  // Theme btn
+  themeBtn.classList.toggle("darkTheme");
+  if (themeBtn.classList.contains("darkTheme"))
+    themeBtn.textContent = "Go Dark";
+  else themeBtn.textContent = "Go Light";
 
-    if (e.key === "&") {
-      choixJoueur = 0;
-    } else if (e.key === "é") {
-      choixJoueur = 1;
-    } else if (e.key === '"') {
-      choixJoueur = 2;
-    }
-
-    if (choixJoueur == choixOrdinateur) {
-      resultat = "Egalité !";
-    } else if (
-      (choixJoueur == 1 && choixOrdinateur == 0) ||
-      (choixJoueur == 2 && choixOrdinateur == 1) ||
-      (choixJoueur == 0 && choixOrdinateur == 2)
-    ) {
-      scoreJoueur1++;
-      resultat = "Vous avez gagné !";
-    } else {
-      scoreOrdinateur++;
-      resultat = "Vous avez perdu !";
-    }
-    score.innerHTML = `Scores :<br>joueur[${scoreJoueur1}] - ordinateur[${scoreOrdinateur}]`;
-    infos.innerHTML = `Vous avez joué : <strong>${choixPossible[choixJoueur]}</strong><br>L'ordinateur a joué : <strong>${choixPossible[choixOrdinateur]}</strong><br><strong>${resultat}</strong>`;
-  } else if (e.key === "r") {
-    scoreJoueur1 = 0;
-    scoreOrdinateur = 0;
-    score.innerHTML = `Scores :<br>joueur[${scoreJoueur1}] - ordinateur[${scoreOrdinateur}]`;
-    infos.innerHTML = "";
-  }
-}
-
-// Creation des 3 <div>
-const newDivScore = document.createElement("div");
-const newDivBtn = document.createElement("div");
-newDivBtn.classList.add("div-btn");
-const newDivInfos = document.createElement("div");
-
-// Creation <p> pour les scores + Deplacement dans newDivScores
-let score = document.createElement("p");
-score.classList.add("scores");
-score.innerHTML = "Scores :<br>joueur[0] - ordinateur[0]";
-newDivScore.appendChild(score);
-
-// Creation des <button> + Creation [addEventListener] + Deplacement dans newDivBtn
-for (let i = 0; i < choixPossible.length; i++) {
-  const newBtn = document.createElement("button");
-  newBtn.innerHTML = `${choixPossible[i]}`;
-  newBtn.classList.add("btn");
-  newBtn.addEventListener("click", shifumi);
-
-  newDivBtn.appendChild(newBtn);
-}
-
-// Creation <p> pour infos destinées a l'utilisateur
-let infos = document.createElement("p");
-infos.classList.add("infos");
-infos.innerHTML = `Vous avez joué :<br>L'ordinateur a joué :`;
-newDivInfos.appendChild(infos);
-
-// Deplacement des 3 newDiv dans le main
-const theMain = document.querySelector("main");
-theMain.appendChild(newDivScore);
-theMain.appendChild(newDivBtn);
-theMain.appendChild(newDivInfos);
-
-// Creation BUTTON Light/Dark Theme
-const newThemeBtn = document.createElement("button");
-newThemeBtn.classList.add("themeBtn");
-newThemeBtn.classList.add("darkTheme");
-newThemeBtn.innerHTML = "Go Dark";
-// Ajout [addEventListener] + [function] flechee qui switch theme dark/light
-const lesBtn = document.querySelectorAll(".btn");
-newThemeBtn.addEventListener("click", () => {
-  newThemeBtn.classList.toggle("darkTheme");
-  // condition pour changer text "go dark" -> "go light"
-  if (!newThemeBtn.classList.contains("darkTheme")) {
-    newThemeBtn.innerHTML = "Go Light";
-  } else if (newThemeBtn.classList.contains("darkTheme")) {
-    newThemeBtn.innerHTML = "Go Dark";
-  }
-
+  // Body
   document.body.classList.toggle("darkTheme");
 
-  for (let fdp of lesBtn) {
-    fdp.classList.toggle("darkTheme");
+  // Game btns
+  for (let btn of document.querySelectorAll(".btn")) {
+    btn.classList.toggle("darkTheme");
   }
 });
-document.querySelector("aside").appendChild(newThemeBtn);
 
-// KeyPress EVENT
-// Creation [addEventListener] sur <body>
+// -- KeyPress EVENT shifumiKey() on <body> --
 document.body.addEventListener("keypress", shifumiKey);
