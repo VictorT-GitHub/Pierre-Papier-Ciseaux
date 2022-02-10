@@ -1,6 +1,6 @@
 # Pierre-Papier-Ciseaux
 
-Simple Chifoumi game with scores and dark/light mode switch system.
+Chifoumi game with scores and dark/light mode switch system.
 
 Mobile-first design.
 
