@@ -8,9 +8,9 @@ You can play with the buttons or with keyboard keys.
 
 [Try it on the GitHub page!](https://victort-github.github.io/Pierre-Papier-Ciseaux/)
 
-| Key | Control                      |
-| --- | ---------------------------- |
-| & 1 | Press `pierre` button        |
-| é 2 | Press `papier` button        |
-| " 3 | Press `ciseaux` button       |
-| r   | Reset scores and clean board |
+| Key     | Control                |
+| ------- | ---------------------- |
+| `&` `1` | Press `pierre` button  |
+| `é` `2` | Press `papier` button  |
+| `"` `3` | Press `ciseaux` button |
+| `r`     | Reset scores and board |
