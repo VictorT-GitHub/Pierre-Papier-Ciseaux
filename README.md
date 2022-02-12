@@ -2,7 +2,7 @@
 
 Chifoumi game with scores and dark/light mode switch system.
 
-Mobile-first design.
+Mobile-first responsive design.
 
 **JavaScript** - **CSS3** - **HTML5**
 
